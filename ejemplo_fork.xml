@@ -1,0 +1,26 @@
+<workflow-app xmlns="uri:oozie:workflow:0.5" name="forkJoinNodeWF">
+	<global>
+		...
+	</global>
+	<start to="forkActions"/>
+	<fork name="forkActions">
+		<path name="echoA"/>
+		<path name="echoB"/>
+	</fork>
+	<action name="echoA">
+		<shell xmlns="uri:oozie:shell-action:0.2">
+			...
+		</shell>
+		<ok to="joinActions"/>
+		<error to="joinActions"/>
+	</action>
+	<action name="echoB">
+		<shell xmlns="uri:oozie:shell-action:0.2">
+			...
+		</shell>
+		<ok to="joinActions"/>
+		<error to="joinActions"/>
+	</action>
+	<join name="joinActions" to="done"/>
+	<end name="done"/>
+</workflow-app>

@@ -1,0 +1,39 @@
+<workflow-app xmlns="uri:oozie:workflow:0.4" name="identity-WF">
+	<start to="identity-MR"/>
+
+	<action name="identity-MR">
+		<map-reduce>
+			<job-tracker>${jobTracker}</job-tracker>	
+			<name-node>${nameNode}</name-node>
+			<prepare>
+				<delete path="${exampleDir}/data/output"/>
+			</prepare>
+			<configuration>
+				<property>
+					<name>mapred.mapper.class</name>
+					<value>org.apache.hadoop.mapred.lib.IdentityMapper</value>
+				</property>
+				<property>
+					<name>mapred.reducer.class</name>
+					<value>org.apache.hadoop.mapred.lib.IdentityReducer</value>
+				</property>
+				<property>
+					<name>mapred.input.dir</name>
+					<value>${exampleDir}/data/input</value>
+				</property>
+				<property>
+					<name>mapred.output.dir</name>
+					<value>${exampleDir}/data/output</value>
+				</property>
+			</configuration>
+		</map-reduce>
+		<ok to="success"/>
+		<error to="fail"/>
+	</action>
+
+	<kill name="fail">
+		<message>The Identity Map-Reduce job failed!</message>
+	</kill>
+	
+	<end name="success"/>
+</workflow-app>

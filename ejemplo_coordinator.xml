@@ -1,0 +1,21 @@
+<coordinator-app name="my_first_coord_job" start="2014-01-01T02:00Z" end=“2014-12-31T02:00Z" frequency="1440" timezone="UTC" xmlns="uri:oozie:coordinator:0.4">
+	<action>
+		<workflow>
+			<app-path>${appBaseDir}/app/</app-path>
+			<configuration>
+				<property>
+					<name>nameNode</name>
+					<value>${nameNode}</value>
+				</property>
+				<property>
+					<name>jobTracker</name>
+					<value>${jobTracker}</value>
+				</property>
+				<property>
+					<name>exampleDir</name>
+					<value>${appBaseDir}</value>
+				</property>
+			</configuration>
+		</workflow>
+	</action>
+</coordinator-app>

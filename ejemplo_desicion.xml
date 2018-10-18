@@ -1,0 +1,27 @@
+<workflow-app xmlns="uri:oozie:workflow:0.5" name="decisionNodeWF">
+	<start to="decision"/>
+	<decision name="decision">
+		<switch>
+			<case to="mapReduce">${jobType eq "mapReduce"}</case>
+			<case to="hive">${jobType eq "hive"}</case>
+			<case to="pig">${jobType eq "pig"}</case>
+			<default to="mapReduce"/>
+		</switch>
+	</decision>
+	<action name="mapReduce">
+		...
+		<ok to="done"/>
+		<error to="done"/>
+	</action>
+	<action name="hive">
+		...
+		<ok to="done"/>
+		<error to="done"/>
+	</action>
+	<action name="pig">
+		...
+		<ok to="done"/>
+		<error to="done"/>
+	</action>
+	<end name="done"/>
+</workflow-app>
